@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# scripts/verify — THE definition of done. Fail-fast, grep-friendly.
+# Usage:  ./scripts/verify        (full gate: what "done" means)
+#         ./scripts/verify fast   (pre-commit subset: seconds, not minutes)
+#
+# House rules:
+# - CI runs this exact script; local green must mean remote green.
+# - Agents: red verify = stop-and-fix. Never proceed past a failing step.
+# - Never weaken a step to make it pass; flag blockers in progress.md instead.
+set -u
+
+MODE="${1:-full}"
+case "$MODE" in
+  fast|full) ;;
+  *) echo "usage: verify [fast|full]"; exit 2 ;;
+esac
+STEP=0
+
+sh_run() { # sh_run <label> "<shell command>"
+  STEP=$((STEP+1))
+  local label="$1" cmd="$2"
+  echo "VERIFY STEP $STEP $label"
+  # -o pipefail: a piped command (e.g. `pytest | tee log`) must fail if ANY
+  # stage fails — without it the gate can silently pass on broken tests.
+  if bash -o pipefail -c "$cmd"; then
+    echo "VERIFY OK $label"
+  else
+    echo "VERIFY FAIL $label"
+    exit 1
+  fi
+}
+
+# --- Fast tier: runs in both modes (target: < 30s) ---------------------------
+sh_run format    "{{FORMAT_CHECK_CMD}}"
+sh_run lint      "{{LINT_CMD}}"
+sh_run typecheck "{{TYPECHECK_CMD}}"
+
+if [ "$MODE" = "fast" ]; then
+  echo "VERIFY DONE fast"
+  exit 0
+fi
+
+# --- Full tier: the actual definition of done --------------------------------
+sh_run test  "{{TEST_CMD}}"
+sh_run build "{{BUILD_CMD}}"
+
+# Optional extra gates — uncomment as the saddle matures:
+# sh_run arch-rules   "{{STRUCTURAL_TEST_CMD}}"     # layering / dependency rules
+# sh_run secrets      "gitleaks detect --no-banner" # secret scanning
+# sh_run e2e-smoke    "{{E2E_SMOKE_CMD}}"           # top user flow, as a human would
+
+echo "VERIFY DONE full"

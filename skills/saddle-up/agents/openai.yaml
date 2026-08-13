@@ -1,0 +1,3 @@
+interface:
+  display_name: "Saddle Init"
+  short_description: "Install, audit, or upgrade a proven agent saddle on any repo"

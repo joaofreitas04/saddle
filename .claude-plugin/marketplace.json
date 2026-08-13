@@ -1,0 +1,23 @@
+{
+  "name": "saddle",
+  "owner": {
+    "name": "Freitas",
+    "url": "https://github.com/joaofreitas04"
+  },
+  "description": "The saddle-up installer as a Claude Code plugin: turn any repository into a proven environment where agents implement and humans steer.",
+  "plugins": [
+    {
+      "name": "saddle-up",
+      "source": "./",
+      "description": "Phase-gated saddle installer: teeth-proven verify gate, state files, live knowledge base, spec flow, tracker contract, autonomy-coverage report card.",
+      "category": "engineering",
+      "keywords": [
+        "saddle",
+        "agents-md",
+        "verify-gate",
+        "autonomous-coding",
+        "spec-driven"
+      ]
+    }
+  ]
+}

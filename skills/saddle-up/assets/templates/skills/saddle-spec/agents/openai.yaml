@@ -1,0 +1,5 @@
+interface:
+  display_name: "Saddle Spec"
+  short_description: "Idea to frozen spec and frontier entries"
+policy:
+  allow_implicit_invocation: false

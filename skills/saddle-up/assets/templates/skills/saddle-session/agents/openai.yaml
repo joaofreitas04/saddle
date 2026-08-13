@@ -1,0 +1,5 @@
+interface:
+  display_name: "Saddle Session"
+  short_description: "Run one verified work session"
+policy:
+  allow_implicit_invocation: false

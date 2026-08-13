@@ -1,0 +1,32 @@
+name: verify
+
+# CI is the remote sensor of record: it runs the SAME gate agents run locally.
+# If this workflow and scripts/verify ever diverge, the saddle is lying to
+# someone — keep them identical.
+# Non-GitHub CI? Do NOT create a parallel system: add a job to the EXISTING
+# CI config (GitLab, CircleCI, ...) that runs ./scripts/verify.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      # Toolchain: replace this step with your stack's setup action
+      # (actions/setup-node@v4, actions/setup-python@v5, setup-go, setup-bun…)
+      # or fill the command form. Placeholders stay quoted — an unquoted
+      # {{...}} is invalid YAML.
+      - name: Setup toolchain
+        run: "{{TOOLCHAIN_SETUP_CMD}}"
+
+      - name: Install dependencies
+        run: "{{INSTALL_CMD}}"
+
+      - name: Verify (definition of done)
+        run: ./scripts/verify

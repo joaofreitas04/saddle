@@ -1,0 +1,5 @@
+interface:
+  display_name: "Saddle Audit"
+  short_description: "Re-prove the gate and re-score coverage"
+policy:
+  allow_implicit_invocation: false

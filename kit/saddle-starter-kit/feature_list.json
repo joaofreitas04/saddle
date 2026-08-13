@@ -1,0 +1,41 @@
+{
+  "_meta": {
+    "purpose": "Scope and done-criteria. The next session's work is the highest-priority FRONTIER entry: passes:false AND all blocked_by entries passed. Array order = priority.",
+    "rules": [
+      "It is unacceptable to remove or edit tests because this could lead to missing or buggy functionality.",
+      "Flip passes to true ONLY after every step was actually executed and succeeded in this session — end-to-end as a user would, not unit tests alone.",
+      "Steps must be machine-checkable or directly observable: commands to run, outputs to see, flows to click through.",
+      "Out-of-scope discoveries become NEW entries here (or issues), never silent expansions of the current diff.",
+      "Entries may declare blocked_by (ids). Sessions pick only from the FRONTIER: passes:false entries whose blockers all pass. Parallel sessions: set claimed_by (session/agent name) BEFORE working and clear it when done; skip claimed entries. Parallel-safe means disjoint areas of behavior/config, not named files.",
+      "Size every entry as a tracer bullet: a narrow but COMPLETE path through every layer, demoable on its own, small enough for one fresh context window.",
+      "Durability: describe behavior and interfaces, never file paths or line numbers — they go stale."
+    ]
+  },
+  "features": [
+    {
+      "id": "example-001",
+      "category": "functional",
+      "blocked_by": [],
+      "description": "User can sign in with email and password",
+      "steps": [
+        "./scripts/verify passes",
+        "Start the app via ./init.sh",
+        "Create a test user, sign in through the real UI/API entry point",
+        "Wrong-password attempt is rejected with a clear error",
+        "Session persists across a page reload / repeated request"
+      ],
+      "passes": false
+    },
+    {
+      "id": "example-002",
+      "category": "quality",
+      "description": "Characterization tests cover the {{CRITICAL_MODULE}} module",
+      "steps": [
+        "New tests exercise the current observable behavior of {{CRITICAL_MODULE}}",
+        "Mutating a core branch of the module makes at least one test fail (spot-check test teeth)",
+        "./scripts/verify passes"
+      ],
+      "passes": false
+    }
+  ]
+}

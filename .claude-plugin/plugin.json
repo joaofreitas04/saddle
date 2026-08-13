@@ -1,0 +1,25 @@
+{
+  "name": "saddle-up",
+  "version": "2.14.0",
+  "description": "Saddle up any repository for autonomous AI development \u2014 a phase-gated installer producing a teeth-proven verify gate, state files, a live-probed knowledge base, spec-driven flow, tracker contract, three operating commands, and a coverage report card. The friendly agent harness: proven before it's trusted.",
+  "author": {
+    "name": "Freitas",
+    "url": "https://github.com/joaofreitas04"
+  },
+  "homepage": "https://github.com/joaofreitas04/saddle",
+  "repository": "https://github.com/joaofreitas04/saddle",
+  "license": "MIT",
+  "keywords": [
+    "saddle",
+    "agent-saddle",
+    "agents-md",
+    "verify-gate",
+    "autonomous-coding",
+    "spec-driven",
+    "knowledge-base",
+    "engineering"
+  ],
+  "skills": [
+    "./skills/saddle-up"
+  ]
+}
